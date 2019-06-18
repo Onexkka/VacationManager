@@ -11,7 +11,7 @@ namespace VacationManager.DAL.Migrations
     using VacationManager.Data.Enums;
     using VacationManager.Data.Identity;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<VacationManagerDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<VacationManagerDbContext>
     {
         public Configuration()
         {

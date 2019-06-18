@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,10 +13,27 @@ namespace VacationManager.WEB
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            try
+            {
+                UpdateDatabase();
+
+                AreaRegistration.RegisterAllAreas();
+                FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+                RouteConfig.RegisterRoutes(RouteTable.Routes);
+                BundleConfig.RegisterBundles(BundleTable.Bundles);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+
+        private void UpdateDatabase()
+        {
+            var migrationConfig = new VacationManager.DAL.Migrations.Configuration();
+            var migrator = new DbMigrator(migrationConfig);
+            migrator.Update();
         }
     }
 }

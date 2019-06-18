@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using VacationManager.WEB.App_Start;
+using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(VacationManager.WEB.Startup))]
@@ -9,6 +10,7 @@ namespace VacationManager.WEB
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            AutofacConfig.RegisterComponents(app);
         }
     }
 }
