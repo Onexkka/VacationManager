@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VacationSystem.Data.Entities.Base;
+using VacationManager.Data.Entities.Base;
 
-namespace VacationSystem.Data.Entities
+namespace VacationManager.Data.Entities
 {
     public class Vacation : BaseEntity
     {

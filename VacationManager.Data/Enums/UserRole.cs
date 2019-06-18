@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VacationSystem.Data.Enums
+namespace VacationManager.Data.Enums
 {
     public struct UserRoles
     {

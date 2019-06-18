@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VacationSystem.Data.Entities.Base
+namespace VacationManager.Data.Entities.Base
 {
     public interface ILastModifiedAt
     {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VacationSystem.Data.Entities.Base;
-using VacationSystem.Data.Identity;
+using VacationManager.Data.Entities.Base;
+using VacationManager.Data.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace VacationSystem.Data.Entities
+namespace VacationManager.Data.Entities
 {
     public class User : IdentityUser<Guid, AspnetUserLogin, AspnetUserRole, AspnetUserClaim>, IGuidId, ICreatedAt, ILastModifiedAt
     {

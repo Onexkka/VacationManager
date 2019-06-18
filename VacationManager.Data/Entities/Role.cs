@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using VacationSystem.Data.Identity;
+using VacationManager.Data.Identity;
 
-namespace VacationSystem.Data.Entities
+namespace VacationManager.Data.Entities
 {
     public class Role : IdentityRole<Guid, AspnetUserRole>
     {
