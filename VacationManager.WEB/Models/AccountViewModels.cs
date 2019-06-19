@@ -65,6 +65,14 @@ namespace VacationManager.WEB.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Имя")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Фамилия")]
+        public string LastName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

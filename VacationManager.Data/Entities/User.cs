@@ -19,7 +19,7 @@ namespace VacationManager.Data.Entities
         /// </summary>
         public DateTime? LastLoginDate { get; set; }
 
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
         public DateTime? LastModifiedAt { get; set; }
 
         public virtual ICollection<Vacation> Vacations { get; set; }

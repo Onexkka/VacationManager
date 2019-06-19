@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VacationManager.Data.Entities.Base
+namespace VacationManager.BLL.Contracts
 {
-    public interface ICreatedAt
+    public interface IVacationService
     {
-        DateTime CreatedAt { get; set; }
+        // Queryable<>
     }
 }

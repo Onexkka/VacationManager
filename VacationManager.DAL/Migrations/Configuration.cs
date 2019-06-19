@@ -84,32 +84,35 @@ namespace VacationManager.DAL.Migrations
                 }
             }
 
-            var defaultVacation = new List<Vacation>
-            {
-                new Vacation()
-                {
-                    UserId = defaultUsers[0].Id,
-                    User = defaultUsers[0],
-                    DateStart = new DateTime(2019, 6, 10),
-                    DateEnd = new DateTime(2019, 6, 20)
-                },
-                new Vacation()
-                {
-                    UserId = defaultUsers[1].Id,
-                    User = defaultUsers[1],
-                    DateStart = new DateTime(2019, 6, 12),
-                    DateEnd = new DateTime(2019, 6, 25)
-                },
-                new Vacation()
-                {
-                    UserId = defaultUsers[1].Id,
-                    User = defaultUsers[1],
-                    DateStart = new DateTime(2019, 7, 12),
-                    DateEnd = new DateTime(2019, 7, 25)
-                }
-            };
+            //var defaultVacation = new List<Vacation>
+            //{
+            //    new Vacation()
+            //    {
+            //        UserId = defaultUsers[0].Id,
+            //        User = defaultUsers[0],
+            //        DateStart = new DateTime(2019, 6, 10),
+            //        DateEnd = new DateTime(2019, 6, 20),
+            //        CreatedAt = DateTime.UtcNow
+            //    },
+            //    new Vacation()
+            //    {
+            //        UserId = defaultUsers[1].Id,
+            //        User = defaultUsers[1],
+            //        DateStart = new DateTime(2019, 6, 12),
+            //        DateEnd = new DateTime(2019, 6, 25),
+            //        CreatedAt = DateTime.UtcNow
+            //    },
+            //    new Vacation()
+            //    {
+            //        UserId = defaultUsers[1].Id,
+            //        User = defaultUsers[1],
+            //        DateStart = new DateTime(2019, 7, 12),
+            //        DateEnd = new DateTime(2019, 7, 25),
+            //        CreatedAt = DateTime.UtcNow
+            //    }
+            //};
 
-            context.Vacations.AddRange(defaultVacation);
+            //context.Vacations.AddRange(defaultVacation);
             context.SaveChanges();
         }
     }

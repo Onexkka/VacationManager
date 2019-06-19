@@ -16,9 +16,13 @@ namespace VacationManager.WEB.Controllers
             this.userService = userService;
         }
 
+        //[Authorize]
         public ActionResult Index()
         {
-            ViewBag.test = userService.GetRole("Super Admin");
+            if (User.IsInRole("Super Admin"))
+                ViewBag.test = userService.GetRole("Super Admin");
+            else
+                ViewBag.test = "You not admin";
             return View();
         }
 

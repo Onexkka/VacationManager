@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VacationManager.Data.Entities.Base
+namespace VacationManager.BLL.DataModels
 {
-    public interface ICreatedAt
+    class VacationDTO
     {
-        DateTime CreatedAt { get; set; }
     }
 }

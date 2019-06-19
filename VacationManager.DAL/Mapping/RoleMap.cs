@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace VacationManager.DAL.Mapping
         public RoleMap()
         {
             this.ToTable("Roles");
+
+            Property(u => u.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
         }
     }
 }

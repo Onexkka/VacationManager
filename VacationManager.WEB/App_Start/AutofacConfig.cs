@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
-using VacationManager.BLL.Contracts;
 using VacationManager.BLL.Services;
 using VacationManager.Data.Contracts;
 using VacationManager.DAL;
