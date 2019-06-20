@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VacationManager.BLL.DataModels
+namespace VacationManager.BLL.Contracts
 {
-    class VacationDto
+    public interface ICalendarService
     {
     }
 }

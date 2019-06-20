@@ -1,0 +1,26 @@
+﻿@model VacationManager.WEB.Models.CalendarViewModel
+<div class="ch-year">
+    <div class="ch-month">
+        <div class="ch-day-labels">
+            <div class="ch-day-label"> </div>
+            <div class="ch-day-label">Mon</div>
+            <div class="ch-day-label">Tue</div>
+            <div class="ch-day-label">Wed</div>
+            <div class="ch-day-label">Thu</div>
+            <div class="ch-day-label">Fri</div>
+            <div class="ch-day-label">Sat</div>
+            <div class="ch-day-label">Sun</div>
+        </div>
+        <div class="ch-month-label">M</div>
+    </div>
+    <div class="ch-month">
+        @{
+            Html.RenderPartial("_Month");
+        }
+    </div>
+    <div class="ch-month">
+        @{
+            Html.RenderPartial("_Month");
+        }
+    </div>
+</div>

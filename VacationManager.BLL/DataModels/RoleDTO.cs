@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace VacationManager.BLL.DataModels
 {
-    class VacationDto
+    public class RoleDTO
     {
+        public string Name { get; set; }
     }
 }

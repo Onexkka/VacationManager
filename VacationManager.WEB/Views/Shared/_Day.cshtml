@@ -1,0 +1,11 @@
+﻿@model VacationManager.WEB.Models.DayViewModel
+
+<div class="ch-day 
+     @(this.Model.IsNotCurrentMonth ? "not-current-month" : null) 
+     @(this.Model.IsWeekendOrHoliday ? "weekend-or-holiday" : null) 
+     @(this.Model.IsToday ? "today" : null)
+     lvl-@(this.Model.Level)">
+    <div class="date">
+        @Model.Date.Day.ToString("00")
+    </div>
+</div>

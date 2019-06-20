@@ -6,11 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using AutoMapper;
+using VacationManager.BLL.Mappings;
 
 namespace VacationManager.WEB
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        [Obsolete] // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         protected void Application_Start()
         {
             try
@@ -21,9 +24,15 @@ namespace VacationManager.WEB
                 FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
                 RouteConfig.RegisterRoutes(RouteTable.Routes);
                 BundleConfig.RegisterBundles(BundleTable.Bundles);
+                Mapper.Initialize(cfg =>
+                {
+                    cfg.AddProfile(typeof(UserDTOMap));
+                    cfg.AddProfile(typeof(RoleDTOMap));
+                });
             }
             catch (Exception ex)
             {
+                var exSource = ex.Source;
                 throw;
             }
 

@@ -22,3 +22,68 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.ch {
+    display: table !important;
+    clear: both;
+}
+.ch-month,
+.ch-week-labels {
+    display: inline-block;
+    white-space: normal;
+    margin: 0 4px;
+}
+.ch-week,
+.ch-day-labels {
+    display: inline-block;
+    width: 12px;
+    box-sizing: content-box;
+}
+.ch-day-labels {
+    width: inherit;
+}
+.ch-month-label {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.ch-day-label {
+    text-align: center;
+    display: block;
+    margin: 0;
+    box-sizing: content-box;
+}
+
+.ch-day {
+    display: inline-block;
+    border: 1px solid #ffffff;
+    background-color: #c8d7e1;
+    margin: 0;
+    box-sizing: content-box;
+}
+
+.ch-day.lvl-0,
+.ch-lvl.lvl-0 {
+    background-color: #c8d7e1;
+}
+.ch-day.is-after-today,
+.ch-lvl.is-after-today {
+    background-color: #d9e3ea;
+}
+.ch-day.lvl-1,
+.ch-lvl.lvl-1 {
+    background-color: #a6c96a;
+}
+.ch-day.lvl-2,
+.ch-lvl.lvl-2 {
+    background-color: #5cb85c;
+}
+.ch-day.lvl-3,
+.ch-lvl.lvl-3 {
+    background-color: #009e47;
+}
+.ch-day.lvl-4,
+.ch-lvl.lvl-4 {
+    background-color: #00753a;
+}
