@@ -7,8 +7,8 @@ using VacationManager.BLL.DataModels;
 
 namespace VacationManager.BLL.Contracts
 {
-    public interface IAdminMenuService
+    public interface IAdminService
     {
-        IEnumerable<UserDTO> GetAllUsers();
+        Task<IEnumerable<UserDTO>> GetAllUsersAsync();
     }
 }

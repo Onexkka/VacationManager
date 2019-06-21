@@ -10,7 +10,6 @@ namespace VacationManager.WEB.Models
         public DateTime Date { get; set; }
         public bool IsNotCurrentMonth { get; set; }
         public bool IsWeekendOrHoliday { get; set; }
-        public bool IsToday { get; set; }
         public int Level { get; set; }
     }
 }

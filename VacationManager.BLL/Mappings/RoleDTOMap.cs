@@ -10,12 +10,15 @@ using VacationManager.Data.Identity;
 
 namespace VacationManager.BLL.Mappings
 {
+
     public class RoleDTOMap : Profile
     {
         public RoleDTOMap()
         {
-
-            CreateMap<Role, RoleDTO>();
+            #region RoleRegion
+            CreateMap<AspnetUserRole, RoleDTO>()
+                .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Role.Name));
+            #endregion
         }
     }
 }

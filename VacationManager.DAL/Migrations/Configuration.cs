@@ -39,8 +39,8 @@ namespace VacationManager.DAL.Migrations
 
             if (!roleManager.RoleExists(UserRoles.SuperAdmin))
             {
-                roleManager.Create(new Role { Id = new Guid("0791A1C6-6598-45C7-B7DB-5EE7DED7F786"), Name = UserRoles.SuperAdmin });
-                roleManager.Create(new Role { Id = new Guid("0791A1C6-6598-45C7-B7DB-5EE7DED7F795"), Name = UserRoles.User });
+                roleManager.Create(new Role { Id = new Guid("0791A1C6-6598-0000-0000-5EE7DED7F786"), Name = UserRoles.SuperAdmin });
+                roleManager.Create(new Role { Id = new Guid("0791A1C6-6598-1111-1111-5EE7DED7F795"), Name = UserRoles.User });
             }
 
             var userStore = new UserStore<User, Role, Guid, AspnetUserLogin, AspnetUserRole, AspnetUserClaim>(context);

@@ -1,0 +1,17 @@
+﻿@using System.Security.Principal
+@model IEnumerable<VacationManager.BLL.DataModels.UserDTO>
+
+@{
+    ViewBag.Title = "Admin Menu";
+}
+
+<h2>Admin Menu</h2>
+@(((IIdentity)ViewBag.user).Name)
+@foreach (var user in Model)
+{
+    <p>@user.Email</p>
+    foreach (var role in user.Roles)
+    {
+        <p>@role.Name</p>
+    }
+}

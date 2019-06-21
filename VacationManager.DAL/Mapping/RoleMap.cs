@@ -15,7 +15,7 @@ namespace VacationManager.DAL.Mapping
         {
             this.ToTable("Roles");
 
-            Property(u => u.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            // Property(u => u.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
         }
     }
 }

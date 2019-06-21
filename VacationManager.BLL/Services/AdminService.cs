@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +14,16 @@ using VacationManager.Data.Entities;
 
 namespace VacationManager.BLL.Services
 {
-    public class AdminMenuService : BaseService, IAdminMenuService
+    public class AdminService : BaseService, IAdminService
     {
-        public AdminMenuService(IUnitOfWork uow)
-            : base(uow)
+        public AdminService(IUnitOfWork uow): base(uow)
         {
         }
-        public IEnumerable<UserDTO> GetAllUsers()
-        {
-            var users = UnitOfWork.GetRepository<User>().AllIncluding(u => u.Roles);
 
+        public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
+        {
+            var users = await UnitOfWork.GetRepository<User>().AllIncluding(u => u.Roles).ToArrayAsync();
+            
             return Mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
         }
     }

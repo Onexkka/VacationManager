@@ -5,7 +5,7 @@ using System.Web;
 
 namespace VacationManager.WEB.Models
 {
-    public class CalendarViewModel
+    public class MonthViewModel
     {
         public DateTime Date { get; set; }
         public DayViewModel[,] Days { get; set; }

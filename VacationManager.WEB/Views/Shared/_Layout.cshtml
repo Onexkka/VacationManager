@@ -26,7 +26,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     @if (User.IsInRole("Super Admin"))
                     {
-                        <li>@Html.ActionLink("Admin Menu", "Index", "AdminMenu")</li>}
+                        <li>@Html.ActionLink("Admin Menu", "Index", "Admin")</li>}
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

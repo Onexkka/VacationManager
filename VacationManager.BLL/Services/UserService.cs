@@ -11,19 +11,13 @@ namespace VacationManager.BLL.Services
 {
     public class UserService : BaseService, IUserService
     {
-        public UserService(IUnitOfWork uow)
-            : base(uow)
+        public UserService(IUnitOfWork uow) : base(uow)
         {
         }
 
         public Role GetRole(string name)
         {
             return UnitOfWork.GetRepository<Role>().All().First(x => x.Name == name);
-        }
-
-        public IQueryable<Vacation> GetQueryable()
-        {
-            return UnitOfWork.GetRepository<Vacation>().All();
         }
     }
 }

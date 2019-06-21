@@ -37,40 +37,50 @@ namespace VacationManager.WEB.Controllers
             return View();
         }
 
-        public ActionResult _Calendar()
+        public ActionResult _Calendar(int? month)
         {
-            DayViewModel[,] days = new DayViewModel[7, 6];
-            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            int offset = (int)date.DayOfWeek;
-
-            if (offset == 0)
-                offset = 7;
-
-            offset--;
-            date = date.AddDays(offset * -1);
-
-            Random rnd = new Random();
-            for (int i = 0; i != 6; i++)
+            MonthViewModel[] calendar = new MonthViewModel[3];
+            month = month ?? DateTime.Now.Month;
+            DateTime date = new DateTime(DateTime.Now.Year, month.Value, 1);
+            date = date.AddMonths(-1);
+            month = date.Month;
+            for (int m = 0; m < 3; m++)
             {
-                for (int j = 0; j != 7; j++)
+                DayViewModel[,] days = new DayViewModel[7, 6];
+
+                int offset = (int) date.DayOfWeek;
+                if (offset == 0)
+                    offset = 7;
+                offset--;
+                date = date.AddDays(offset * -1);
+
+                Random rnd = new Random(); // test
+
+                for (int i = 0; i != 6; i++)
                 {
-                    days[j, i] = new DayViewModel()
+                    for (int j = 0; j != 7; j++)
                     {
-                        Date = date,
-                        IsNotCurrentMonth = date.Month != DateTime.Now.Month,
-                        IsWeekendOrHoliday = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday,
-                        IsToday = date.Date == DateTime.Now.Date,
-                        Level = rnd.Next(4)
-                    };
-                    date = date.AddDays(1);
+                        days[j, i] = new DayViewModel()
+                        {
+                            Date = date,
+                            IsNotCurrentMonth = date.Month != month,
+                            IsWeekendOrHoliday = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday,
+                            Level = rnd.Next(4) // test
+                        };
+                        date = date.AddDays(1);
+                    }
                 }
+
+                calendar[m] = new MonthViewModel()
+                {
+                    Date = date.AddMonths(-1),
+                    Days = days
+                };
+
+                date = new DateTime(date.Year, date.Month, 1);
+                month = date.Month;
             }
 
-            CalendarViewModel calendar = new CalendarViewModel()
-            {
-                Date = DateTime.Now,
-                Days = days
-            };
             return PartialView(calendar);
         }
     }
