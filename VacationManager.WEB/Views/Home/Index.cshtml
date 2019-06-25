@@ -7,7 +7,7 @@
     </div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-">
         @Ajax.ActionLink(@"Prev", "_Calendar", new { month = index}, new AjaxOptions {UpdateTargetId = "results"})
         @Ajax.ActionLink(@"Calendar", "_Calendar", new {month = index}, new AjaxOptions {UpdateTargetId = "results"})
         @Ajax.ActionLink(@"Next", "_Calendar", new {month = (index + 1)}, new AjaxOptions {UpdateTargetId = "results"})
