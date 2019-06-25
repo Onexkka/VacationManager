@@ -1,0 +1,25 @@
+﻿.day {
+    width: 20px;
+    height: 20px;
+    fill: #c3c8cf;
+}
+
+.lvl-0 {
+    fill: #789fd4 !important;
+}
+
+.lvl-1 {
+    fill: #faed3a !important;
+}
+
+.lvl-2 {
+    fill: #3afa8a !important;
+}
+
+.lvl-3 {
+    fill: #8245d1 !important;
+}
+
+.small {
+    font: 16px sans-serif;
+}

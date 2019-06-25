@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using VacationManager.BLL.Contracts;
+using VacationManager.Data.Entities;
 using VacationManager.WEB.Models;
 
 namespace VacationManager.WEB.Controllers
 {
     public class HomeController : Controller
     {
-        IUserService _userService;
+        private IUserService _userService;
+        private IVacationService _vacationService;
 
-        public HomeController(IUserService userService)
+        public HomeController(IUserService userService, IVacationService vacationService)
         {
             this._userService = userService;
+            this._vacationService = vacationService;
         }
 
         //[Authorize]
@@ -35,6 +39,12 @@ namespace VacationManager.WEB.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> List()
+        {
+            return Json(await _vacationService.GetAllVacationAsync(), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult _Calendar(int? month)

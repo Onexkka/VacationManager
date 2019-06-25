@@ -2,23 +2,38 @@
     ViewBag.Title = "Home Page";
     int index = DateTime.Now.Month;
 }
+<link rel="stylesheet" href="~/Content/svg-calendar.css">
+<div class="jumbotron">
 
-    <div class="jumbotron">
-    </div>
+</div>
 
 <div class="row">
-    <div class="col-md-">
-        @Ajax.ActionLink(@"Prev", "_Calendar", new { month = index}, new AjaxOptions {UpdateTargetId = "results"})
-        @Ajax.ActionLink(@"Calendar", "_Calendar", new {month = index}, new AjaxOptions {UpdateTargetId = "results"})
-        @Ajax.ActionLink(@"Next", "_Calendar", new {month = (index + 1)}, new AjaxOptions {UpdateTargetId = "results"})
-        <div id="results"></div>
-    </div>
-    @*<div class="col-md-4">
-        @Ajax.ActionLink(@"Calendar", "_Calendar", new { month = DateTime.Now.Month}, new AjaxOptions { UpdateTargetId = "results2" })
-        <div id="results2"></div>
-    </div>
     <div class="col-md-4">
-        @Ajax.ActionLink(@"Calendar", "_Calendar", new { month = 12}, new AjaxOptions { UpdateTargetId = "results3" })
-        <div id="results3"></div>
+        <div class="d-flex flex-column">
+
+            <div class="d-inline-flex p-2 justify-content-center">
+                <a href="#" id="prev">◀</a>
+                <span>calendar</span>
+                <a href="#" id="next">▶</a>
+            </div>
+
+            <div class="d-flex flex-row">
+                <div class="d-inline-flex p-2 calendar-base"></div>
+            </div>
+            <div id="testList"></div>
+            @*@Ajax.ActionLink(@"Prev", "_Calendar", new { month = index}, new AjaxOptions {UpdateTargetId = "results"})
+        @Ajax.ActionLink(@"Calendar", "_Calendar", new {month = index}, new AjaxOptions {UpdateTargetId = "results"})
+        @Ajax.ActionLink(@"Next", "_Calendar", new {month = (index + 1)}, new AjaxOptions {UpdateTargetId = "results"})*@
+            @*<div id="results"></div>*@
+        </div>
+        @*<div class="col-md-4">
     </div>*@
+    </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/jquery.svg.js"></script>
+<script src="~/js/svg-calendar.js"></script>
+<script>
+    var asd = '@Html.Action("About")';
+</script>

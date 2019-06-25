@@ -90,11 +90,13 @@
     <Compile Include="Identity\VacationManagerUserStore.cs" />
     <Compile Include="Mappings\RoleDTOMap.cs" />
     <Compile Include="Mappings\UserDTOMap.cs" />
+    <Compile Include="Mappings\VacationDTOMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AdminService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\CalendarService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\VacationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extentions\" />

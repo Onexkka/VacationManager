@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace VacationManager.BLL.DataModels
 {
-    class VacationDto
+    public class VacationDTO
     {
+        public DateTime DateStart;
+        public DateTime DateEnd;
     }
 }

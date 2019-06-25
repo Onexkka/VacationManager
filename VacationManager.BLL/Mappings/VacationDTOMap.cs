@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using VacationManager.BLL.DataModels;
 using VacationManager.Data.Entities;
 
-namespace VacationManager.BLL.Contracts
+namespace VacationManager.BLL.Mappings
 {
-    public interface IVacationService
+    public class VacationDTOMap : Profile
     {
-        Task<IEnumerable<VacationDTO>> GetAllVacationAsync();
+        public VacationDTOMap()
+        {
+            CreateMap<Vacation, VacationDTO>();
+        }
     }
 }

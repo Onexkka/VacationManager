@@ -28,6 +28,7 @@ namespace VacationManager.WEB
                 {
                     cfg.AddProfile(typeof(UserDTOMap));
                     cfg.AddProfile(typeof(RoleDTOMap));
+                    cfg.AddProfile(typeof(VacationDTOMap));
                 });
             }
             catch (Exception ex)
