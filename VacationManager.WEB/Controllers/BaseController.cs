@@ -5,7 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 using PerpetuumSoft.Knockout;
 
-namespace KnockoutMvcDemo.Controllers
+namespace VacationManager.WEB.Controllers
 {
     public abstract class BaseController : KnockoutController
     {

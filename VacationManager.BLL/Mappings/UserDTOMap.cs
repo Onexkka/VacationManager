@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.Configuration;
+﻿using AutoMapper;
 using VacationManager.BLL.DataModels;
 using VacationManager.Data.Entities;
-using VacationManager.Data.Identity;
 
 namespace VacationManager.BLL.Mappings
 {
@@ -15,7 +8,9 @@ namespace VacationManager.BLL.Mappings
     {
         public UserDTOMap()
         {
-            CreateMap<User, UserDTO>();
+            CreateMap<User, UserDTO>()
+                .ForMember(d => d.FullName, 
+                    opt => opt.MapFrom(s => s.FirstName + " " + s.LastName));
         }
     }
 }

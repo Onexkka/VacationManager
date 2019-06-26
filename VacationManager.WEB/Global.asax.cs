@@ -8,6 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
 using VacationManager.BLL.Mappings;
+using VacationManager.WEB.Mappings;
 
 namespace VacationManager.WEB
 {
@@ -29,6 +30,9 @@ namespace VacationManager.WEB
                     cfg.AddProfile(typeof(UserDTOMap));
                     cfg.AddProfile(typeof(RoleDTOMap));
                     cfg.AddProfile(typeof(VacationDTOMap));
+                    cfg.AddProfile(typeof(VacationVMMap));
+                    cfg.AddProfile(typeof(UserVMMap));
+                    cfg.AddProfile(typeof(RoleVMMap));
                 });
             }
             catch (Exception ex)

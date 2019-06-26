@@ -158,7 +158,8 @@ namespace VacationManager.WEB.Controllers
                     UserName = model.Email,
                     Email = model.Email,
                     FirstName = model.FirstName,
-                    LastName = model.LastName
+                    LastName = model.LastName,
+                    CreatedAt = DateTime.Now
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

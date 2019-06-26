@@ -23,5 +23,10 @@ namespace VacationManager.BLL.Services
 
             return Mapper.Map<IEnumerable<Vacation>, IEnumerable<VacationDTO>>(vacations);
         }
+
+        public void TakeVacation()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

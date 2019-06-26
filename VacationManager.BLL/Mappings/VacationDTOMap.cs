@@ -13,7 +13,9 @@ namespace VacationManager.BLL.Mappings
     {
         public VacationDTOMap()
         {
-            CreateMap<Vacation, VacationDTO>();
+            CreateMap<Vacation, VacationDTO>()
+                .ForMember(d => d.UserName, 
+                    opt => opt.MapFrom(s => s.User.FirstName + " " + s.User.LastName));
         }
     }
 }

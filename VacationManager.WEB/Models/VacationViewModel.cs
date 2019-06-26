@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace VacationManager.BLL.DataModels
+namespace VacationManager.WEB.Models
 {
-    public class VacationDTO
+    public class VacationViewModel
     {
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
