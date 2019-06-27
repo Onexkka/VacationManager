@@ -22,9 +22,9 @@ namespace VacationManager.WEB.Controllers
         }
 
         //[Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string message)
         {
-            return View();
+            return View(message);
         }
 
         public ActionResult About()
@@ -39,12 +39,6 @@ namespace VacationManager.WEB.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> List()
-        {
-            return Json(await _vacationService.GetAllVacationAsync(), JsonRequestBehavior.AllowGet);
         }
     }
 }

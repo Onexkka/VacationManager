@@ -50,7 +50,6 @@ function drawCalendar(svg) {
             json.forEach(function(element) {
                 if(dd >= parseInt(element.DateStart.substr(6, 13)) && dd <= parseInt(element.DateEnd.substr(6, 13))) {
                     count++;
-                    console.log(count);
                 }
             });
             $(this).attr("class", "day lvl-" + count);

@@ -1,50 +1,193 @@
 ﻿@using Microsoft.AspNet.Identity
 @using VacationManager.WEB.Extensions
+@model VacationManager.WEB.Models.VacationViewModel
 @{
     ViewBag.Title = "Home Page";
     string tt = "/User/Details?id=" + @User.Identity.GetUserIdGuid();
 }
 <link rel="stylesheet" href="~/Content/svg-calendar.css">
-<div class="jumbotron">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    @*<script>
-        $.ajax({
-            url: "@tt",
-            type: "GET",
-            success: function (data) {
-                console.log(data);
-            }
+@*<div class="jumbotron">
+    <script>
+    $.ajax({
+      url: "@tt",
+      type: "GET",
+      success: function (data) {
+          console.log(data);
+      }
     });
-    </script>*@
-    @Html.Action("Details", "User", new {id = User.Identity.GetUserIdGuid()})
-    @using PerpetuumSoft.Knockout
-    @model VacationManager.WEB.Models.VacationViewModel
-    <div>
-        @{
-            var ko = Html.CreateKnockoutContext();
-        }
-        <p>@ko.Html.Span(m => m.DateStart)</p>
-        <h2>Hello, @ko.Html.Span(m => m.DateEnd)!</h2>
-    </div>
-
-    @ko.Apply(Model)
-</div>
+    </script>
+    </div>*@
 
 <div class="row">
     <div class="col-md-4">
-        <div class="d-flex flex-column">
-            <div class="d-inline-flex p-2 justify-content-center">
+        <hr />
+        @*@Html.Action("Details", "User", new { id = User.Identity.GetUserIdGuid() })
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.DateStart, new { @class = "control-label col-md-2" })
+                    </div>
+                    <div class="editor-field">
+                        <input class="date-picker" />
+                        @Html.TextBox("Date Start", "", new { @class = "date-picker" })
+                        @Html.EditorFor(model => model.DateStart, new {id="datepicker"})
+                        @Html.ValidationMessageFor(model => model.DateStart)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.DateEnd, new { @class = "control-label col-md-2" })
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.DateEnd)
+                        @Html.ValidationMessageFor(model => model.DateEnd)
+                    </div>
+
+                    <p>
+                        <input type="submit" value="Испытать удачу" />
+                    </p>
+            }
+        *@
+        @using (Ajax.BeginForm("TakeVacation", "Vacation", new AjaxOptions { UpdateTargetId = "results", OnSuccess = "OnSuccess"}))
+        {
+            <div class="d-flex flex-column">
+                <div class="p-2">
+                    <label for="from">From</label>
+                    <input type="text" id="from" name="DateStart">
+                </div>
+                <div class="p-2">
+                    <label for="to">to</label>
+                    <input type="text" id="to" name="DateEnd">
+                </div>
+                <input type="hidden" value="@User.Identity.GetUserIdGuid()" name="userId" />
+                <div class="p-2">
+                    <input type="submit" value="Испытать удачу" />
+                </div>
+            </div>
+        }
+        <div id="results"></div>
+        @*@using (Html.BeginForm("TakeVacation", "Vacation"))
+            {
+                <div class="d-flex flex-column">
+                    <div class="p-2">
+                        <label for="from">From</label>
+                        <input type="text" id="from" name="DateStart">
+                    </div>
+                    <div class="p-2">
+                        <label for="to">to</label>
+                        <input type="text" id="to" name="DateEnd">
+                    </div>
+                    <div class="p-2">
+                        <input type="submit" value="Испытать удачу"/>
+                    </div>
+                </div>
+            }*@
+    </div>
+    <div class="col-md-6">
+        <hr />
+        <div class="row justify-content-center">
+            <div class="col-4">
                 <a href="#" id="prev">◀</a>
                 <span>calendar</span>
                 <a href="#" id="next">▶</a>
             </div>
-            <div class="d-flex flex-row">
-                <div class="d-inline-flex p-2 calendar-base"></div>
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <div class="calendar-base"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <table class="table table-sm">
+                    <tbody>
+                        <tr>
+                            <td class="lvl-3"></td>
+                            <td>Уже поздно</td>
+                        </tr>
+                        <tr>
+                            <td class="lvl-2"></td>
+                            <td>Испытай свою удачу</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <table class="table table-sm">
+                    <tbody>
+                        <tr>
+                            <td class="lvl-1"></td>
+                            <td>Минимальные риски</td>
+                        </tr>
+                        <tr>
+                            <td class="lvl-0"></td>
+                            <td>Ты будешь первым</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript" src="~/js/jquery.svg.js"></script>
-<script> var ajaxString = "/Vacation/GetAllVacationJSON";</script>
-<script src="~/js/svg-calendar.js"></script>
+@section scripts {
+    <script>var ajaxString = "/Vacation/GetAllVacationJSON";</script>
+    <script src=@Url.Content("~/js/jquery.svg.js")></script>
+    <script src=@Url.Content("~/js/svg-calendar.js")></script>
+    <script>
+        function monthDiff(dateFrom, dateTo) {
+            return dateTo.getMonth() - dateFrom.getMonth() +
+                (12 * (dateTo.getFullYear() - dateFrom.getFullYear()));
+        }
+
+        $(function () {
+            var dateFormat = "dd-MM-yy",
+                from = $("#from")
+                    .datepicker({
+                        dateFormat: 'dd-MM-yy',
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 2,
+                    })
+                    .on("change", function () {
+                        console.log("Selected date: " + getDate(this) + "; input current value: " + this.value);
+                        index = monthDiff(new Date(), getDate(this));
+                        calendarBase.svg("destroy");
+                        calendarBase.svg(drawCalendar);
+                        console.log(monthDiff(new Date(), getDate(this)));
+                        to.datepicker("option", "minDate", getDate(this));
+                    }),
+                to = $("#to").datepicker({
+                        dateFormat: 'dd-MM-yy',
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 2
+                    })
+                    .on("change", function () {
+                        from.datepicker("option", "maxDate", getDate(this));
+                    });
+
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+
+                return date;
+            }
+        });
+    </script>
+    <script>
+        function OnSuccess(data) {
+            calendarBase.svg("destroy");
+            calendarBase.svg(drawCalendar);
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            calendarBase.svg("destroy");
+            calendarBase.svg(drawCalendar);
+        });
+    </script>
+}

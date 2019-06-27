@@ -12,7 +12,7 @@ namespace VacationManager.WEB.Mappings
     {
         public VacationVMMap()
         {
-            CreateMap<VacationDTO, VacationViewModel>();
+            CreateMap<VacationDTO, VacationViewModel>().ReverseMap();
         }
     }
 }

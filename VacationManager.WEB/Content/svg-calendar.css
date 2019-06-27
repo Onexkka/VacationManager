@@ -6,18 +6,22 @@
 
 .lvl-0 {
     fill: #c3c8cf !important;
+    background-color: #c3c8cf;
 }
 
 .lvl-1 {
     fill: #f7fa3a !important;
+    background-color: #f7fa3a;
 }
 
 .lvl-2 {
     fill: #e2942f !important;
+    background-color: #e2942f;
 }
 
 .lvl-3 {
     fill: #da3636 !important;
+    background-color: #da3636;
 }
 
 .small {
