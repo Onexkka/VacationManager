@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using VacationManager.DAL.Contracts;
 using VacationManager.DAL.Repositories;
-using VacationManager.Data.Contracts;
 
 namespace VacationManager.DAL
 {

@@ -54,13 +54,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IBaseRepository.cs" />
     <Compile Include="Contracts\IUnitOfWork.cs" />
+    <Compile Include="Mapping\Helpers\MapHelperDAL.cs" />
     <Compile Include="Mapping\RoleMap.cs" />
     <Compile Include="Mapping\UserMap.cs" />
     <Compile Include="Mapping\VacationMap.cs" />
     <Compile Include="Migrations\201906190328519_Init.cs" />
     <Compile Include="Migrations\201906190328519_Init.Designer.cs">
       <DependentUpon>201906190328519_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906280155183_NewRole.cs" />
+    <Compile Include="Migrations\201906280155183_NewRole.Designer.cs">
+      <DependentUpon>201906280155183_NewRole.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +87,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201906190328519_Init.resx">
       <DependentUpon>201906190328519_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906280155183_NewRole.resx">
+      <DependentUpon>201906280155183_NewRole.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -59,29 +59,12 @@
                     <label for="to">to</label>
                     <input type="text" id="to" name="DateEnd">
                 </div>
-                <input type="hidden" value="@User.Identity.GetUserIdGuid()" name="userId" />
                 <div class="p-2">
-                    <input type="submit" value="Испытать удачу" />
+                    <input type="submit" value="Мне повезет!" />
                 </div>
             </div>
         }
         <div id="results"></div>
-        @*@using (Html.BeginForm("TakeVacation", "Vacation"))
-            {
-                <div class="d-flex flex-column">
-                    <div class="p-2">
-                        <label for="from">From</label>
-                        <input type="text" id="from" name="DateStart">
-                    </div>
-                    <div class="p-2">
-                        <label for="to">to</label>
-                        <input type="text" id="to" name="DateEnd">
-                    </div>
-                    <div class="p-2">
-                        <input type="submit" value="Испытать удачу"/>
-                    </div>
-                </div>
-            }*@
     </div>
     <div class="col-md-6">
         <hr />

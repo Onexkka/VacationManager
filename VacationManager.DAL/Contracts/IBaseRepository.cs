@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VacationManager.Data.Contracts
+namespace VacationManager.DAL.Contracts
 {
     public interface IBaseRepository<T> where T : class
     {

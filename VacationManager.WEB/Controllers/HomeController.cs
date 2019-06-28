@@ -22,9 +22,9 @@ namespace VacationManager.WEB.Controllers
         }
 
         //[Authorize]
-        public ActionResult Index(string message)
+        public ActionResult Index()
         {
-            return View(message);
+            return View();
         }
 
         public ActionResult About()

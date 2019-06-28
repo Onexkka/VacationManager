@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using VacationManager.BLL.Contracts;
 using VacationManager.BLL.DataModels;
 using VacationManager.DAL.Contracts;
@@ -19,28 +20,17 @@ namespace VacationManager.BLL.Services
         }
         public async Task<IEnumerable<VacationDTO>> GetAllVacationAsync()
         {
-            var vacations = await UnitOfWork.GetRepository<Vacation>().All().ToArrayAsync();
-
-            return Mapper.Map<IEnumerable<Vacation>, IEnumerable<VacationDTO>>(vacations);
+            var vacations = await UnitOfWork.GetRepository<Vacation>().All().ProjectTo<VacationDTO>().ToArrayAsync();
+            return vacations;
+            // return Mapper.Map<IEnumerable<Vacation>, IEnumerable<VacationDTO>>(vacations);
         }
 
-        public async Task<int> TakeVacation(VacationDTO vacationDto, Guid userId)
+        public async Task<string> TakeVacation(VacationDTO vacationDto, Guid userId)
         {
-            var vacation = await UnitOfWork.GetRepository<Vacation>()
+            var count = await UnitOfWork.GetRepository<Vacation>()
                 .Where(v =>
-                    v.DateStart.Month == vacationDto.DateStart.Month
-                    || v.DateStart.Month == vacationDto.DateEnd.Month
-                    || v.DateEnd.Month == vacationDto.DateStart.Month
-                    || v.DateEnd.Month == vacationDto.DateEnd.Month).ToArrayAsync();
-
-            int count = 0;
-            foreach (var vac in vacation)
-            {
-                bool v1 = vacationDto.DateStart >= vac.DateStart && vacationDto.DateStart <= vac.DateEnd;
-                bool v2 = vacationDto.DateEnd >= vac.DateStart && vacationDto.DateEnd <= vac.DateEnd;
-                if (v1 || v2)
-                    count++;
-            }
+                    vacationDto.DateStart >= v.DateStart && vacationDto.DateStart <= v.DateEnd
+                    || vacationDto.DateEnd >= v.DateStart && vacationDto.DateEnd <= v.DateEnd).CountAsync();
 
             if (count < 3)
             {
@@ -48,12 +38,11 @@ namespace VacationManager.BLL.Services
                 item.UserId = userId;
                 item.CreatedAt = DateTime.Now;
                 UnitOfWork.GetRepository<Vacation>().Add(item);
-                int c = await UnitOfWork.CommitAsync();
-                if (c == 0)
-                    count += 10;
+                await UnitOfWork.CommitAsync();
+                return ("Success take vacation");
             }
 
-            return count;
+            return ("Fail take vacation");
         }
     }
 }

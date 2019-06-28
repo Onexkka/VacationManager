@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using VacationManager.BLL.Services;
-using VacationManager.Data.Contracts;
 using VacationManager.DAL;
 using VacationManager.DAL.Contracts;
 using VacationManager.DAL.Repositories;

@@ -15,10 +15,8 @@ namespace VacationManager.BLL.Mappings
     {
         public RoleDTOMap()
         {
-            #region RoleRegion
             CreateMap<AspnetUserRole, RoleDTO>()
                 .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Role.Name));
-            #endregion
         }
     }
 }

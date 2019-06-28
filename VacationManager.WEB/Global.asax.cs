@@ -2,13 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
-using VacationManager.BLL.Mappings;
+using Microsoft.Ajax.Utilities;
 using VacationManager.WEB.Mappings;
+using WebGrease.Css.Extensions;
+using VacationManager.BLL.Mappings;
+using VacationManager.BLL.Mappings.Helpers;
+using VacationManager.DAL.Mapping;
+using VacationManager.DAL.Mapping.Helpers;
 
 namespace VacationManager.WEB
 {
@@ -25,8 +31,22 @@ namespace VacationManager.WEB
                 FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
                 RouteConfig.RegisterRoutes(RouteTable.Routes);
                 BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+                //string mapBLL = "VacationManager.BLL.Mappings";
+                //string mapDAL = "VacationManager.DAL.Mapping";
+
+                //var dal = MapHelperDAL.GetTypesForMapping(mapDAL).ToList();
+                //var bll = MapHelperBLL.GetTypesForMapping(mapBLL).ToList();
+
                 Mapper.Initialize(cfg =>
                 {
+                    //foreach (var ty in dal)
+                    //{
+                    //    dynamic tt = Activator.CreateInstance(ty);
+                    //    cfg.AddProfile(tt.GetType());
+                    //}
+                    //bll.ToList().ForEach(t => cfg.AddProfile(t.BaseType));
+
                     cfg.AddProfile(typeof(UserDTOMap));
                     cfg.AddProfile(typeof(RoleDTOMap));
                     cfg.AddProfile(typeof(VacationDTOMap));

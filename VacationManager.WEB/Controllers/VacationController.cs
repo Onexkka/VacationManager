@@ -8,19 +8,20 @@ using System.Web.Services.Description;
 using AutoMapper;
 using VacationManager.BLL.Contracts;
 using VacationManager.BLL.DataModels;
+using VacationManager.WEB.Extensions;
 using VacationManager.WEB.Models;
 
 namespace VacationManager.WEB.Controllers
 {
     public class VacationController : Controller
     {
-        private IUserService _userService;
-        private IVacationService _vacationService;
+        private readonly IUserService _userService;
+        private readonly IVacationService _vacationService;
 
         public VacationController(IUserService userService, IVacationService vacationService)
         {
-            this._userService = userService;
-            this._vacationService = vacationService;
+            _userService = userService;
+            _vacationService = vacationService;
         }
         // GET: Vacation
         [HttpGet]
@@ -30,16 +31,13 @@ namespace VacationManager.WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> TakeVacation(VacationViewModel vacation, Guid userId)
+        public async Task<ActionResult> TakeVacation(VacationViewModel vacation)
         {
-            var d = vacation.DateStart;
             var vacDto = Mapper.Map<VacationViewModel, VacationDTO>(vacation);
             if (ModelState.IsValid)
             {
-                var result = await _vacationService.TakeVacation(vacDto, userId);
-                if (result > 2)
-                    return Content("Can take vac");
-                return Content("Success take vac");
+                var message = await _vacationService.TakeVacation(vacDto, User.Identity.GetUserIdGuid());
+                return Content(message);
             }
             return Content("Error");
         }

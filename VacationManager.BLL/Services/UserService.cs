@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using VacationManager.BLL.Contracts;
 using VacationManager.BLL.DataModels;
 using VacationManager.Data.Entities;
@@ -26,15 +27,15 @@ namespace VacationManager.BLL.Services
 
         public async Task<UserDTO> GetUserAsync(Guid id)
         {
-            var user = UnitOfWork.GetRepository<User>().First(u => u.Id == id);
-            return Mapper.Map<User, UserDTO>(user);
+            var user = UnitOfWork.GetRepository<User>().Where(u => u.Id == id).ProjectTo<UserDTO>().First();
+            return user;
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
         {
-            var users = await UnitOfWork.GetRepository<User>().AllIncluding(u => u.Roles).ToArrayAsync();
+            var users = await UnitOfWork.GetRepository<User>().AllIncluding(u => u.Roles).ProjectTo<UserDTO>().ToArrayAsync();
 
-            return Mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
+            return users;
         }
 
         public void UpdateUserAsync(UserDTO userDto)
