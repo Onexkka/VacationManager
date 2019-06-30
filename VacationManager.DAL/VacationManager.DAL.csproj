@@ -68,6 +68,14 @@
     <Compile Include="Migrations\201906280155183_NewRole.Designer.cs">
       <DependentUpon>201906280155183_NewRole.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906301432576_AddVacationDescription.cs" />
+    <Compile Include="Migrations\201906301432576_AddVacationDescription.Designer.cs">
+      <DependentUpon>201906301432576_AddVacationDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906301503015_AddDataInVacationTable.cs" />
+    <Compile Include="Migrations\201906301503015_AddDataInVacationTable.Designer.cs">
+      <DependentUpon>201906301503015_AddDataInVacationTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EntityRepository.cs" />
@@ -90,6 +98,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906280155183_NewRole.resx">
       <DependentUpon>201906280155183_NewRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906301432576_AddVacationDescription.resx">
+      <DependentUpon>201906301432576_AddVacationDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906301503015_AddDataInVacationTable.resx">
+      <DependentUpon>201906301503015_AddDataInVacationTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

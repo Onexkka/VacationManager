@@ -9,7 +9,8 @@ namespace VacationManager.DAL.Mapping
         public VacationMap()
         {
             HasKey(v => v.Id);   // set Primary key
-            Property(u => u.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(v => v.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(v => v.LastModifiedAt).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
             //Property(v => v.Id).HasColumnType("UniqueIdentifier");
         }
     }

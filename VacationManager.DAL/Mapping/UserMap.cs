@@ -16,6 +16,7 @@ namespace VacationManager.DAL.Mapping
             HasKey(u => u.Id);
 
             Property(u => u.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(u => u.LastModifiedAt).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
 
             HasMany(u => u.Vacations)       // user has many Vacation (one-to-many)
             .WithRequired(h => h.User)      // Vacation required set User nav-property
