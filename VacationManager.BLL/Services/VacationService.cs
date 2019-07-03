@@ -20,9 +20,7 @@ namespace VacationManager.BLL.Services
         }
         public async Task<IEnumerable<VacationDTO>> GetAllVacationAsync()
         {
-            var vacations = await UnitOfWork.GetRepository<Vacation>().All().ProjectTo<VacationDTO>().ToArrayAsync();
-            return vacations;
-            // return Mapper.Map<IEnumerable<Vacation>, IEnumerable<VacationDTO>>(vacations);
+            return await UnitOfWork.GetRepository<Vacation>().All().ProjectTo<VacationDTO>().ToArrayAsync();
         }
 
         public async Task<IEnumerable<VacationDTO>> GetVacationAsync(DateTime dateStart, DateTime dateEnd)
@@ -44,7 +42,6 @@ namespace VacationManager.BLL.Services
             {
                 var item = Mapper.Map<VacationDTO, Vacation>(vacationDto);
                 item.UserId = userId;
-                item.CreatedAt = DateTime.Now;
                 UnitOfWork.GetRepository<Vacation>().Add(item);
                 await UnitOfWork.CommitAsync();
                 return ("Success take vacation");

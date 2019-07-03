@@ -19,97 +19,63 @@
     </div>*@
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-4">
         <hr />
-        @*@Html.Action("Details", "User", new { id = User.Identity.GetUserIdGuid() })
-                @using (Html.BeginForm())
-                {
-                    @Html.ValidationSummary(true)
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.DateStart, new { @class = "control-label col-md-2" })
-                    </div>
-                    <div class="editor-field">
-                        <input class="date-picker" />
-                        @Html.TextBox("Date Start", "", new { @class = "date-picker" })
-                        @Html.EditorFor(model => model.DateStart, new {id="datepicker"})
-                        @Html.ValidationMessageFor(model => model.DateStart)
-                    </div>
-
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.DateEnd, new { @class = "control-label col-md-2" })
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.DateEnd)
-                        @Html.ValidationMessageFor(model => model.DateEnd)
-                    </div>
-
-                    <p>
-                        <input type="submit" value="Испытать удачу" />
-                    </p>
-            }
-        *@
-        @using (Ajax.BeginForm("TakeVacation", "Vacation", new AjaxOptions { UpdateTargetId = "results", OnSuccess = "OnSuccess"}))
+        @using (Ajax.BeginForm("TakeVacation", "Vacation", new AjaxOptions { UpdateTargetId = "results", OnSuccess = "OnSuccess" }))
         {
-            <div class="d-flex flex-column">
-                <div class="p-2">
-                    <label for="from">From</label>
-                    <input type="text" id="from" name="DateStart">
-                </div>
-                <div class="p-2">
-                    <label for="to">to</label>
-                    <input type="text" id="to" name="DateEnd">
-                </div>
-                <div class="p-2">
-                    @Html.LabelFor(v => v.Description)
-                    @Html.EditorFor(v => v.Description)
-                </div>
-                <div class="p-2">
-                    <input type="submit" value="Мне повезет!" />
-                </div>
+            <div class="">
+                <label for="from">From</label>
+                <input type="text" id="from" name="DateStart">
+            </div>
+            <div class="">
+                <label for="to">to</label>
+                <input type="text" id="to" name="DateEnd">
+            </div>
+            <div class="">
+                @Html.LabelFor(v => v.Description)
+                @Html.EditorFor(v => v.Description)
+            </div>
+            <div class="">
+                <input type="submit" value="Мне повезет!" />
             </div>
         }
         <div id="results"></div>
     </div>
-    <div class="col-md-6">
-        <hr />
+    <div class="col-8">
+        <hr/>
         <div class="row justify-content-center">
-            <div class="col-4">
+            <div class="col-12 offset-4">
                 <a href="#" id="prev">◀</a>
                 <span>calendar</span>
                 <a href="#" id="next">▶</a>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-10">
-                <div class="calendar-base"></div>
+            <div class="col-12 calendar-base">
             </div>
-        </div>
-        <div class="row">
             <div class="col-6">
                 <table class="table table-sm">
                     <tbody>
-                        <tr>
-                            <td class="lvl-3"></td>
-                            <td>Уже поздно</td>
-                        </tr>
-                        <tr>
-                            <td class="lvl-2"></td>
-                            <td>Испытай свою удачу</td>
-                        </tr>
+                    <tr>
+                        <td class="lvl-3"></td>
+                        <td>Уже поздно</td>
+                    </tr>
+                    <tr>
+                        <td class="lvl-2"></td>
+                        <td>Испытай свою удачу</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
-            <div>
+            <div class="col-6">
                 <table class="table table-sm">
                     <tbody>
-                        <tr>
-                            <td class="lvl-1"></td>
-                            <td>Минимальные риски</td>
-                        </tr>
-                        <tr>
-                            <td class="lvl-0"></td>
-                            <td>Ты будешь первым</td>
-                        </tr>
+                    <tr>
+                        <td class="lvl-1"></td>
+                        <td>Минимальные риски</td>
+                    </tr>
+                    <tr>
+                        <td class="lvl-0"></td>
+                        <td>Ты будешь первым</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -144,11 +110,11 @@
                         to.datepicker("option", "minDate", getDate(this));
                     }),
                 to = $("#to").datepicker({
-                        dateFormat: 'dd-MM-yy',
-                        defaultDate: "+1w",
-                        changeMonth: true,
-                        numberOfMonths: 2
-                    })
+                    dateFormat: 'dd-MM-yy',
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 2
+                })
                     .on("change", function () {
                         from.datepicker("option", "maxDate", getDate(this));
                     });
