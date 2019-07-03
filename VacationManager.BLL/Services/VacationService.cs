@@ -25,6 +25,14 @@ namespace VacationManager.BLL.Services
             // return Mapper.Map<IEnumerable<Vacation>, IEnumerable<VacationDTO>>(vacations);
         }
 
+        public async Task<IEnumerable<VacationDTO>> GetVacationAsync(DateTime dateStart, DateTime dateEnd)
+        {
+            return await UnitOfWork.GetRepository<Vacation>()
+                .Where(v => v.DateStart.Month >= dateStart.Month && v.DateEnd.Month <= dateEnd.Month)
+                .ProjectTo<VacationDTO>()
+                .ToArrayAsync();
+        }
+
         public async Task<string> TakeVacation(VacationDTO vacationDto, Guid userId)
         {
             var count = await UnitOfWork.GetRepository<Vacation>()

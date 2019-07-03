@@ -27,7 +27,7 @@
                 <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>*@
                 @if (User.IsInRole("Super Admin"))
                 {
-                    <li class="nav-item">@Html.ActionLink("Admin Menu", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Admin Menu", "Index", "User", new { area = "" }, new { @class = "nav-link" })</li>
                 }
             </ul>
             @Html.Partial("_LoginPartial")

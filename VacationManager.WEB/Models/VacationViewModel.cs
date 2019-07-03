@@ -15,5 +15,6 @@ namespace VacationManager.WEB.Models
         [DisplayFormat(DataFormatString = "{dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateEnd { get; set; }
         public string UserName { get; set; }
+        public string Description { get; set; }
     }
 }

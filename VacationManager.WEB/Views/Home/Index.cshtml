@@ -60,6 +60,10 @@
                     <input type="text" id="to" name="DateEnd">
                 </div>
                 <div class="p-2">
+                    @Html.LabelFor(v => v.Description)
+                    @Html.EditorFor(v => v.Description)
+                </div>
+                <div class="p-2">
                     <input type="submit" value="Мне повезет!" />
                 </div>
             </div>
@@ -113,7 +117,7 @@
     </div>
 </div>
 @section scripts {
-    <script>var ajaxString = "/Vacation/GetAllVacationJSON";</script>
+    <script>var ajaxString = "/Vacation/GetAllVacationJson";</script>
     <script src=@Url.Content("~/js/jquery.svg.js")></script>
     <script src=@Url.Content("~/js/svg-calendar.js")></script>
     <script>
@@ -129,7 +133,7 @@
                         dateFormat: 'dd-MM-yy',
                         defaultDate: "+1w",
                         changeMonth: true,
-                        numberOfMonths: 2,
+                        numberOfMonths: 2
                     })
                     .on("change", function () {
                         console.log("Selected date: " + getDate(this) + "; input current value: " + this.value);

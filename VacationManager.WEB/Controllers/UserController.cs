@@ -21,6 +21,14 @@ namespace VacationManager.WEB.Controllers
             this._userService = userService;
             this._vacationService = vacationService;
         }
+
+        public async Task<ActionResult> Index()
+        {
+            var userDto = await _userService.GetAllUsersAsync();
+            var user = Mapper.Map<IEnumerable<UserDTO>, IEnumerable<UserViewModel>>(userDto);
+            return View(user);
+        }
+
         // GET: User
         public async Task<ActionResult> Details(Guid id)
         {

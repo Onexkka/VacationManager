@@ -11,6 +11,7 @@ namespace VacationManager.BLL.Contracts
     public interface IVacationService
     {
         Task<IEnumerable<VacationDTO>> GetAllVacationAsync();
+        Task<IEnumerable<VacationDTO>> GetVacationAsync(DateTime dateStart, DateTime dateEnd);
         Task<string> TakeVacation(VacationDTO vacationDto, Guid userId);
     }
 }

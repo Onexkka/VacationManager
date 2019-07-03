@@ -1,12 +1,11 @@
 ﻿@using System.Security.Principal
-@model IEnumerable<VacationManager.BLL.DataModels.UserDTO>
+@model IEnumerable<VacationManager.WEB.Models.UserViewModel>
 
 @{
     ViewBag.Title = "Admin Menu";
 }
 
 <h2>Admin Menu</h2>
-@(((IIdentity)ViewBag.user).Name)
 @foreach (var user in Model)
 {
     <p>@user.Email</p>
