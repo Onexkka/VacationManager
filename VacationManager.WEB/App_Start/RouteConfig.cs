@@ -18,6 +18,21 @@ namespace VacationManager.WEB
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            //routes.MapRoute(
+            //    name: "lang",
+            //    url: "{lang}/{controller}/{action}/{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+            //    constraints: new { lang = @"ru|en" },
+            //    namespaces: new[] { "LessonProject.Areas.Default.Controllers" }
+            //);
+
+            //routes.MapRoute(
+            //    name: "default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, lang = "ru" },
+            //    namespaces: new[] { "LessonProject.Areas.Default.Controllers" }
+            //);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -25,6 +27,19 @@ namespace VacationManager.WEB.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult ChangeLanguage(string selectedlanguage)
+        {
+            if (selectedlanguage != null)
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(selectedlanguage);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(selectedlanguage);
+                var cookie = new HttpCookie("lang");
+                cookie.Value = selectedlanguage;
+                Response.Cookies.Add(cookie);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult About()

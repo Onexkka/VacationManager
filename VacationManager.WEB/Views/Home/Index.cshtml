@@ -5,19 +5,20 @@
     ViewBag.Title = "Home Page";
     string tt = "/User/Details?id=" + @User.Identity.GetUserIdGuid();
 }
-<link rel="stylesheet" href="~/Content/svg-calendar.css">
+@*<link rel="stylesheet" href="~/Content/svg-calendar.css">*@
+<link href="~/Content/css/bootstrap-year-calendar.css" rel="stylesheet" />
 @*<div class="jumbotron">
     <script>
-    $.ajax({
-      url: "@tt",
-      type: "GET",
-      success: function (data) {
-          console.log(data);
-      }
-    });
-    </script>
-    </div>*@
-
+       $.ajax({
+         url: "@tt",
+         type: "GET",
+         success: function (data) {
+             console.log(data);
+         }
+       });
+       </script>
+       </div>*@
+<div data-provide="calendar"></div>
 <div class="row">
     <div class="col-4">
         <hr />
@@ -42,40 +43,33 @@
         <div id="results"></div>
     </div>
     <div class="col-8">
-        <hr/>
+        <hr />
         <div class="row justify-content-center">
-            <div class="col-12 offset-4">
-                <a href="#" id="prev">◀</a>
-                <span>calendar</span>
-                <a href="#" id="next">▶</a>
-            </div>
-            <div class="col-12 calendar-base">
-            </div>
             <div class="col-6">
                 <table class="table table-sm">
                     <tbody>
-                    <tr>
-                        <td class="lvl-3"></td>
-                        <td>Уже поздно</td>
-                    </tr>
-                    <tr>
-                        <td class="lvl-2"></td>
-                        <td>Испытай свою удачу</td>
-                    </tr>
+                        <tr>
+                            <td class="lvl-3"></td>
+                            <td>Уже поздно</td>
+                        </tr>
+                        <tr>
+                            <td class="lvl-2"></td>
+                            <td>Испытай свою удачу</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
             <div class="col-6">
                 <table class="table table-sm">
                     <tbody>
-                    <tr>
-                        <td class="lvl-1"></td>
-                        <td>Минимальные риски</td>
-                    </tr>
-                    <tr>
-                        <td class="lvl-0"></td>
-                        <td>Ты будешь первым</td>
-                    </tr>
+                        <tr>
+                            <td class="lvl-1"></td>
+                            <td>Минимальные риски</td>
+                        </tr>
+                        <tr>
+                            <td class="lvl-0"></td>
+                            <td>Ты будешь первым</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -83,9 +77,9 @@
     </div>
 </div>
 @section scripts {
-    <script>var ajaxString = "/Vacation/GetAllVacationJson";</script>
-    <script src=@Url.Content("~/js/jquery.svg.js")></script>
-    <script src=@Url.Content("~/js/svg-calendar.js")></script>
+    @*<script>var ajaxString = "/Vacation/GetAllVacationJson";</script>*@
+    <script src=@Url.Content("~/Scripts/js/bootstrap-year-calendar.js")></script>
+    @*<script src=@Url.Content("")></script>*@
     <script>
         function monthDiff(dateFrom, dateTo) {
             return dateTo.getMonth() - dateFrom.getMonth() +
@@ -139,8 +133,9 @@
     </script>
     <script>
         $(document).ready(function () {
-            calendarBase.svg("destroy");
-            calendarBase.svg(drawCalendar);
+            $('.calendar').calendar()
+            //calendarBase.svg("destroy");
+            //calendarBase.svg(drawCalendar);
         });
     </script>
 }
