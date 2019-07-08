@@ -233,8 +233,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\css\bootstrap-year-calendar.css" />
-    <Content Include="Content\css\bootstrap-year-calendar.min.css" />
+    <Content Include="Content\css\js-year-calendar.min.css" />
     <Content Include="Content\images\ui-icons_444444_256x240.png" />
     <Content Include="Content\images\ui-icons_555555_256x240.png" />
     <Content Include="Content\images\ui-icons_777620_256x240.png" />
@@ -251,10 +250,6 @@
     <None Include="Resources\country-icon.bmp" />
     <None Include="Resources\ru.png" />
     <None Include="Resources\en.png" />
-    <Content Include="Scripts\js\bootstrap-year-calendar.js" />
-    <Content Include="Scripts\js\bootstrap-year-calendar.min.js" />
-    <Content Include="Scripts\js\jquery.svg.js" />
-    <Content Include="Scripts\js\svg-calendar.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -290,6 +285,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\js-year-calendar.min.js" />
     <Content Include="Scripts\knockout-3.1.0.debug.js" />
     <Content Include="Scripts\knockout-3.1.0.js" />
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
