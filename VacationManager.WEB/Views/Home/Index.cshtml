@@ -1,19 +1,37 @@
-﻿@using Microsoft.AspNet.Identity
-@using VacationManager.WEB.Extensions
-@model VacationManager.WEB.Models.VacationViewModel
+﻿@model VacationManager.WEB.Models.VacationViewModel
 @{
     ViewBag.Title = "Home Page";
-    string tt = "/User/Details?id=" + @User.Identity.GetUserIdGuid();
+    // string tt = "/User/Details?id=" + @User.Identity.GetUserIdGuid();
 }
-@*<link rel="stylesheet" href="~/Content/svg-calendar.css">*@
 <link href="~/Content/css/js-year-calendar.min.css" rel="stylesheet" />
-<div class="jumbotron">
-</div>
+<link rel="stylesheet" type="text/css"
+      href="https://unpkg.com/bootstrap-datepicker@1.8.0/dist/css/bootstrap-datepicker.standalone.min.css" />
+@*<div class="jumbotron">
+</div>*@
 <div class="calendar" id="calendar"></div>
 @Html.Partial("_Modal")
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="context-menu">
 </div>
-<div class="row">
+@*<div class="row">
     <div class="col-4">
         <hr />
         @using (Ajax.BeginForm("TakeVacation", "Vacation", new AjaxOptions { UpdateTargetId = "results" }))
@@ -69,11 +87,14 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 @section scripts {
     <script src=@Url.Content("~/Scripts/js/js-year-calendar.min.js")></script>
+    <script src=@Url.Content("~/Scripts/locales/js-year-calendar.ru.js")></script>
     <script>
-        function monthDiff(dateFrom, dateTo) {
+    </script>
+    @*<script>
+   function monthDiff(dateFrom, dateTo) {
             return dateTo.getMonth() -
                 dateFrom.getMonth() +
                 (12 * (dateTo.getFullYear() - dateFrom.getFullYear()));
@@ -88,7 +109,7 @@
                         changeMonth: true,
                         numberOfMonths: 2
                     })
-                    .on("change",
+                    .on("change",     
                         function() {
                             console.log("Selected date: " + getDate(this) + "; input current value: " + this.value);
                             index = monthDiff(new Date(), getDate(this));
@@ -119,14 +140,24 @@
                 return date;
             }
         });
-    </script>
+    </script>*@
     <script>
         function editEvent(event) {
             $('#event-modal input[name="event-index"]').val(event ? event.id : '');
             $('#event-modal input[name="event-name"]').val(event ? event.name : '');
             $('#event-modal input[name="event-location"]').val(event ? event.location : '');
-            $('#event-modal input[name="event-start-date"]').datepicker('update', event ? event.startDate : '');
-            $('#event-modal input[name="event-end-date"]').datepicker('update', event ? event.endDate : '');
+            $('#event-modal input[name="DateStart"]').datepicker({
+                format: "dd/M/yy",
+                //update: event ? event.startDate : '',
+                //value: moment(event.startDate).format("DD/MMM/YY"),
+            });
+            $('#event-modal input[name="DateStart"]').datepicker('update', event ? event.startDate : '');
+            $('#event-modal input[name="DateEnd"]').datepicker({
+                format: "dd/M/yy",
+                //update: event ? event.endDate : '',
+                //value: moment(event.endDate).format("DD/MMM/YY")
+            });
+            $('#event-modal input[name="DateEnd"]').datepicker('update', event ? event.endDate : '');
             $('#event-modal').modal();
         }
 
@@ -141,47 +172,50 @@
                 id: $('#event-modal input[name="event-index"]').val(),
                 name: $('#event-modal input[name="event-name"]').val(),
                 location: $('#event-modal input[name="event-location"]').val(),
-                startDate: $('#event-modal input[name="event-start-date"]').datepicker('getDate'),
-                endDate: $('#event-modal input[name="event-end-date"]').datepicker('getDate')
+                startDate: $('#event-modal input[name="DateStart"]').datepicker('getDate'),
+                endDate: $('#event-modal input[name="DateEnd"]').datepicker('getDate')
             }
 
-            var dataSource = calendar.getDataSource();
+            //var dataSource = calendar.getDataSource();
 
-            if (event.id) {
-                for (var i in dataSource) {
-                    if (dataSource[i].id == event.id) {
-                        dataSource[i].name = event.name;
-                        dataSource[i].location = event.location;
-                        dataSource[i].startDate = event.startDate;
-                        dataSource[i].endDate = event.endDate;
-                    }
-                }
-            } else {
-                var newId = 0;
-                for (var i in dataSource) {
-                    if (dataSource[i].id > newId) {
-                        newId = dataSource[i].id;
-                    }
-                }
+            //if (event.id) {
+            //    for (var i in dataSource) {
+            //        if (dataSource[i].id === event.id) {
+            //            dataSource[i].name = event.name;
+            //            dataSource[i].location = event.location;
+            //            dataSource[i].startDate = event.startDate;
+            //            dataSource[i].endDate = event.endDate;
+            //        }
+            //    }
+            //} else {
+            //    var newId = 0;
+            //    for (var i in dataSource) {
+            //        if (dataSource[i].id > newId) {
+            //            newId = dataSource[i].id;
+            //        }
+            //    }
 
-                newId++;
-                event.id = newId;
+            //    newId++;
+            //    event.id = newId;
 
-                dataSource.push(event);
-            }
+            //    dataSource.push(event);
+            //}
 
-            calendar.setDataSource(dataSource);
+            //calendar.setDataSource(dataSource);
             $('#event-modal').modal('hide');
         }
 
         $('#save-event').click(function() {
             saveEvent();
-        })
+        });
     </script>
     <script>
         var currentYear = new Date().getFullYear();
         const calendar = new Calendar('.calendar',
             {
+                language: "@System.Globalization.CultureInfo.CurrentCulture",
+                displayWeekNumber: true,
+                minDate: new Date(),
                 enableContextMenu: true,
                 enableRangeSelection: true,
                 contextMenuItems: [
@@ -203,16 +237,16 @@
                         var content = '';
 
                         for (var i in e.events) {
-                            content += "*"//'<div class="event-tooltip-content">' +
-                                //'<div class="event-name" style="color:' +
-                                //e.events[i].color +
-                                //'">' +
-                                //e.events[i].name +
-                                //'</div>' +
-                                //'<div class="event-location">' +
-                                //e.events[i].location +
-                                //'</div>' +
-                                //'</div>';
+                            content += "*" //'<div class="event-tooltip-content">' +
+                            //'<div class="event-name" style="color:' +
+                            //e.events[i].color +
+                            //'">' +
+                            //e.events[i].name +
+                            //'</div>' +
+                            //'<div class="event-location">' +
+                            //e.events[i].location +
+                            //'</div>' +
+                            //'</div>';
                         }
 
                         $(e.element).popover({
@@ -232,7 +266,7 @@
                 },
                 dayContextMenu: function(e) {
                     $(e.element).popover('hide');
-                },
+                }
                 //dataSource: [
                 //    {
                 //        id: 0,
@@ -259,10 +293,30 @@
                     count++;
                 }
             });
-            element.parentElement.setAttribute("data", "lvl-" + count);
+            let lvl;
+            switch (count) {
+            case 0:
+                lvl = 0;
+                break;
+            case 1:
+                lvl = 1;
+                break;
+            case 2:
+                lvl = 2;
+                break;
+            case 3:
+                lvl = 3;
+                break;
+            case 4:
+                lvl = 4;
+                break;
+            default:
+                lvl = 4;
+                break;
+            }
+            element.parentElement.setAttribute("data", "lvl-" + lvl);
         }
         calendar.setCustomDataSourceRenderer(lol);
-        //$(document).ready(function () {});
     </script>
     <script>
         var kek =
@@ -275,12 +329,39 @@
                             startDate: parseInt(d.DateStart.substr(6, 13)),
                             endDate: parseInt(d.DateEnd.substr(6, 13))
                         };
-                        //console.log(event);
                         calendar.addEvent(event);
                     });
-                    // calendar.setDataSource(data);
-                    //console.log(data);
                 }
             });
+    </script>
+    <script>
+        var dataSource = calendar.getDataSource();
+        console.log(dataSource);
+        function OnSuccess(e) {
+            $('#exampleModal .modal-body').text("Success take vacation");
+            $('#exampleModal').modal();
+
+            var event = {
+                id: $('#event-modal input[name="event-index"]').val(),
+                name: $('#event-modal input[name="event-name"]').val(),
+                location: $('#event-modal input[name="event-location"]').val(),
+                startDate: $('#event-modal input[name="DateStart"]').datepicker('getDate'),
+                endDate: $('#event-modal input[name="DateEnd"]').datepicker('getDate')
+            }
+
+            console.log(event.startDate);
+            var newId = 0;
+            for (var i in dataSource) {
+                if (dataSource[i].id > newId) {
+                    newId = dataSource[i].id;
+                }
+            }
+
+            newId++;
+            event.id = newId;
+
+            dataSource.push(event);
+            calendar.setDataSource(dataSource);
+        }
     </script>
 }

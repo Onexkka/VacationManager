@@ -34,6 +34,7 @@ namespace VacationManager.WEB.Controllers
         [HttpPost]
         public async Task<ActionResult> TakeVacation(VacationViewModel vacation)
         {
+            // vacation.DateStart = Convert.ToDateTime(Request.Form["DateStart"]);
             var vacDto = Mapper.Map<VacationViewModel, VacationDTO>(vacation);
             if (ModelState.IsValid)
             {
