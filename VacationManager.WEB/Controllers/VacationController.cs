@@ -27,7 +27,8 @@ namespace VacationManager.WEB.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAllVacationJson(DateTime dateStart, DateTime dateEnd)
         {
-            return Json(await _vacationService.GetVacationAsync(dateStart, dateEnd), JsonRequestBehavior.AllowGet);
+            var vacationViewModel = Mapper.Map<IEnumerable<VacationDTO>, IEnumerable<VacationViewModel>>(await _vacationService.GetVacationAsync(dateStart, dateEnd));
+            return Json(vacationViewModel, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
