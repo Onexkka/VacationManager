@@ -4,10 +4,9 @@
     // string tt = "/User/Details?id=" + @User.Identity.GetUserIdGuid();
 }
 <link href="~/Content/css/js-year-calendar.min.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css"
-      href="https://unpkg.com/bootstrap-datepicker@1.8.0/dist/css/bootstrap-datepicker.standalone.min.css" />
-@*<div class="jumbotron">
-</div>*@
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/bootstrap-datepicker@1.8.0/dist/css/bootstrap-datepicker.standalone.min.css" />
+@*<div class="jumbotron"></div>*@
+
 <div class="calendar" id="calendar"></div>
 @Html.Partial("_Modal")
 
@@ -29,134 +28,19 @@
         </div>
     </div>
 </div>
-<div id="context-menu">
-</div>
-@*<div class="row">
-    <div class="col-4">
-        <hr />
-        @using (Ajax.BeginForm("TakeVacation", "Vacation", new AjaxOptions { UpdateTargetId = "results" }))
-        {
-            <div class="">
-                <label for="from">From</label>
-                <input type="text" id="from" name="DateStart">
-            </div>
-            <div class="">
-                <label for="to">to</label>
-                <input type="text" id="to" name="DateEnd">
-            </div>
-            <div class="">
-                @Html.LabelFor(v => v.Description)
-                @Html.EditorFor(v => v.Description)
-            </div>
-            <div class="">
-                <input type="submit" value="Мне повезет!" />
-            </div>
-        }
-        <div id="results"></div>
-    </div>
-    <div class="col-8">
-        <hr />
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <table class="table table-sm">
-                    <tbody>
-                        <tr>
-                            <td class="lvl-3"></td>
-                            <td>Уже поздно</td>
-                        </tr>
-                        <tr>
-                            <td class="lvl-2"></td>
-                            <td>Испытай свою удачу</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-6">
-                <table class="table table-sm">
-                    <tbody>
-                        <tr>
-                            <td class="lvl-1"></td>
-                            <td>Минимальные риски</td>
-                        </tr>
-                        <tr>
-                            <td class="lvl-0"></td>
-                            <td>Ты будешь первым</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>*@
+<div id="context-menu"></div>
+@System.Configuration.ConfigurationManager.AppSettings["UnobtrusiveJavaScriptEnabled"]
 @section scripts {
     <script src=@Url.Content("~/Scripts/js/js-year-calendar.min.js")></script>
     <script src=@Url.Content("~/Scripts/locales/js-year-calendar.ru.js")></script>
-    <script>
-    </script>
-    @*<script>
-   function monthDiff(dateFrom, dateTo) {
-            return dateTo.getMonth() -
-                dateFrom.getMonth() +
-                (12 * (dateTo.getFullYear() - dateFrom.getFullYear()));
-        }
-
-        $(function() {
-            var dateFormat = "dd-MM-yy",
-                from = $("#from")
-                    .datepicker({
-                        dateFormat: 'dd-MM-yy',
-                        defaultDate: "+1w",
-                        changeMonth: true,
-                        numberOfMonths: 2
-                    })
-                    .on("change",     
-                        function() {
-                            console.log("Selected date: " + getDate(this) + "; input current value: " + this.value);
-                            index = monthDiff(new Date(), getDate(this));
-                            calendarBase.svg("destroy");
-                            calendarBase.svg(drawCalendar);
-                            console.log(monthDiff(new Date(), getDate(this)));
-                            to.datepicker("option", "minDate", getDate(this));
-                        }),
-                to = $("#to").datepicker({
-                        dateFormat: 'dd-MM-yy',
-                        defaultDate: "+1w",
-                        changeMonth: true,
-                        numberOfMonths: 2
-                    })
-                    .on("change",
-                        function() {
-                            from.datepicker("option", "maxDate", getDate(this));
-                        });
-
-            function getDate(element) {
-                var date;
-                try {
-                    date = $.datepicker.parseDate(dateFormat, element.value);
-                } catch (error) {
-                    date = null;
-                }
-
-                return date;
-            }
-        });
-    </script>*@
     <script>
         function editEvent(event) {
             $('#event-modal input[name="event-index"]').val(event ? event.id : '');
             $('#event-modal input[name="event-name"]').val(event ? event.name : '');
             $('#event-modal input[name="event-location"]').val(event ? event.location : '');
-            $('#event-modal input[name="DateStart"]').datepicker({
-                format: "dd/M/yy",
-                //update: event ? event.startDate : '',
-                //value: moment(event.startDate).format("DD/MMM/YY"),
-            });
+            $('#event-modal input[name="DateStart"]').datepicker({ format: "dd/M/yy" });
             $('#event-modal input[name="DateStart"]').datepicker('update', event ? event.startDate : '');
-            $('#event-modal input[name="DateEnd"]').datepicker({
-                format: "dd/M/yy",
-                //update: event ? event.endDate : '',
-                //value: moment(event.endDate).format("DD/MMM/YY")
-            });
+            $('#event-modal input[name="DateEnd"]').datepicker({ format: "dd/M/yy" });
             $('#event-modal input[name="DateEnd"]').datepicker('update', event ? event.endDate : '');
             $('#event-modal').modal();
         }
@@ -226,6 +110,10 @@
                     {
                         text: 'Delete',
                         click: deleteEvent
+                    },
+                    {
+                        text: 'Details',
+
                     }
                 ],
 
@@ -267,26 +155,35 @@
                 dayContextMenu: function(e) {
                     $(e.element).popover('hide');
                 }
-                //dataSource: [
-                //    {
-                //        id: 0,
-                //        name: 'Google I/O',
-                //        location: 'San Francisco, CA',
-                //        startDate: new Date(currentYear, 4, 28),
-                //        endDate: new Date(currentYear, 4, 29)
-                //    },
-                //    {
-                //        id: 1,
-                //        name: 'Microsoft Convergence',
-                //        location: 'New Orleans, LA',
-                //        startDate: new Date(currentYear, 2, 16),
-                //        endDate: new Date(currentYear, 2, 19)
-                //    }
-                //]
+            });
+        console.log(calendar);
+        console.log(document.querySelector('.calendar'));
+
+        document.querySelector('.calendar').addEventListener("yearChanged",
+            function(e) {
+                calendar.setDataSource(null);
+                $.ajax({
+                    url: `/Vacation/GetAllVacationJson?dateStart=${calendar.getYear()}-01-01&dateEnd=${
+                        calendar.getYear() + 1}-01-10`,
+                    type: "GET",
+                    success: function(data) {
+                        let eventsList = [];
+                        data.forEach(d => {
+                            let event = {
+                                startDate: parseInt(d.DateStart.substr(6, 13)),
+                                endDate: parseInt(d.DateEnd.substr(6, 13))
+                            };
+                            eventsList.push(event);
+                        });
+                        calendar.setDataSource(eventsList);
+                    }
+                });
             });
 
-        calendar.setStyle('custom');
-        var lol = function(element, currentDate, events) {
+        document.querySelector('.calendar').dispatchEvent(new Event("yearChanged"));
+
+        //calendar.setStyle('custom');
+        var customDataSourceRenderer = function(element, currentDate, events) {
             let count = 0;
             events.forEach(event => {
                 if (currentDate >= event.startDate && currentDate <= event.endDate) {
@@ -307,36 +204,21 @@
             case 3:
                 lvl = 3;
                 break;
-            case 4:
-                lvl = 4;
-                break;
             default:
-                lvl = 4;
+                lvl = 3;
                 break;
             }
             element.parentElement.setAttribute("data", "lvl-" + lvl);
         }
-        calendar.setCustomDataSourceRenderer(lol);
+        calendar.setCustomDataSourceRenderer(customDataSourceRenderer);
     </script>
     <script>
-        var kek =
-            $.ajax({
-                url: "/Vacation/GetAllVacationJson?dateStart=2019-01-01&dateEnd=2020-01-01",
-                type: "GET",
-                success: function(data) {
-                    data.forEach(d => {
-                        let event = {
-                            startDate: parseInt(d.DateStart.substr(6, 13)),
-                            endDate: parseInt(d.DateEnd.substr(6, 13))
-                        };
-                        calendar.addEvent(event);
-                    });
-                }
-            });
+
     </script>
     <script>
         var dataSource = calendar.getDataSource();
         console.log(dataSource);
+
         function OnSuccess(e) {
             $('#exampleModal .modal-body').text("Success take vacation");
             $('#exampleModal').modal();
@@ -362,6 +244,12 @@
 
             dataSource.push(event);
             calendar.setDataSource(dataSource);
+        }
+    </script>
+    <script>
+        function OnError(e) {
+            $('#exampleModal .modal-body').text("Wrong vacation parameter");
+            $('#exampleModal').modal();
         }
     </script>
 }

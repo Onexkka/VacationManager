@@ -1,5 +1,6 @@
 ﻿@model VacationManager.WEB.Models.VacationViewModel
-@using (Ajax.BeginForm("TakeVacation", "Vacation", new AjaxOptions { UpdateTargetId = "results", OnSuccess="OnSuccess" }))
+@using (Ajax.BeginForm("TakeVacation", "Vacation", 
+    new AjaxOptions { UpdateTargetId = "results", OnSuccess="OnSuccess", OnFailure = "OnError"}))
 {
     <div class="modal fade" id="event-modal">
         <div class="modal-dialog">

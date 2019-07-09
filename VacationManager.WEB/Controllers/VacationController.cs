@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -34,14 +35,16 @@ namespace VacationManager.WEB.Controllers
         [HttpPost]
         public async Task<ActionResult> TakeVacation(VacationViewModel vacation)
         {
-            // vacation.DateStart = Convert.ToDateTime(Request.Form["DateStart"]);
+            var lol = Convert.ToDateTime(Request.Form["DateStart"]);
+            var kek = Convert.ToDateTime(Request.Form["DataEnd"]);
+
             var vacDto = Mapper.Map<VacationViewModel, VacationDTO>(vacation);
             if (ModelState.IsValid)
             {
-                var message = await _vacationService.TakeVacation(vacDto, User.Identity.GetUserIdGuid());
-                return Content(message);
+                if( await _vacationService.TakeVacation(vacDto, User.Identity.GetUserIdGuid()))
+                    return Content("Success take vacation");
             }
-            return Content("Error");
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
     }
 }

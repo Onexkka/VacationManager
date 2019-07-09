@@ -32,7 +32,7 @@ namespace VacationManager.BLL.Services
             return vacation;
         }
 
-        public async Task<string> TakeVacation(VacationDTO vacationDto, Guid userId)
+        public async Task<bool> TakeVacation(VacationDTO vacationDto, Guid userId)
         {
             var count = await UnitOfWork.GetRepository<Vacation>()
                 .Where(v =>
@@ -45,10 +45,10 @@ namespace VacationManager.BLL.Services
                 item.UserId = userId;
                 UnitOfWork.GetRepository<Vacation>().Add(item);
                 await UnitOfWork.CommitAsync();
-                return ("Success take vacation");
+                return true;
             }
 
-            return ("Fail take vacation");
+            return false;
         }
     }
 }
