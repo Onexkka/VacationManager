@@ -3,9 +3,30 @@
     ViewBag.Title = "Home Page";
     // string tt = "/User/Details?id=" + @User.Identity.GetUserIdGuid();
 }
+@*@System.Configuration.ConfigurationManager.AppSettings["UnobtrusiveJavaScriptEnabled"]*@
 <link href="~/Content/css/js-year-calendar.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/bootstrap-datepicker@1.8.0/dist/css/bootstrap-datepicker.standalone.min.css" />
-@*<div class="jumbotron"></div>*@
+<div class="jumbotron">
+    <div>
+        <label>
+            <input type="checkbox" name="group1[]" />Rainbow
+        </label>
+        <label>
+            <input type="checkbox" name="group1[]" />OrderStatus
+        </label>
+        <label>
+            <input type="checkbox" name="group1[]" />HeatMap
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="" />Hide Pending
+        </label>
+        <label>
+            <input type="checkbox" name="" />Hide Denied
+        </label>
+    </div>
+</div>
 
 <div class="calendar" id="calendar"></div>
 @Html.Partial("_Modal")
@@ -29,7 +50,6 @@
     </div>
 </div>
 <div id="context-menu"></div>
-@System.Configuration.ConfigurationManager.AppSettings["UnobtrusiveJavaScriptEnabled"]
 @section scripts {
     <script src=@Url.Content("~/Scripts/js/js-year-calendar.min.js")></script>
     <script src=@Url.Content("~/Scripts/locales/js-year-calendar.ru.js")></script>
@@ -47,8 +67,7 @@
 
         function deleteEvent(event) {
             var dataSource = calendar.getDataSource();
-
-            calendar.setDataSource(dataSource.filter(item => item.id == event.id));
+            calendar.setDataSource(dataSource.filter(item => item.id === event.id));
         }
 
         function saveEvent() {
@@ -78,10 +97,8 @@
             //            newId = dataSource[i].id;
             //        }
             //    }
-
             //    newId++;
             //    event.id = newId;
-
             //    dataSource.push(event);
             //}
 
@@ -89,12 +106,23 @@
             $('#event-modal').modal('hide');
         }
 
-        $('#save-event').click(function() {
+        $('#save-event').click(function () {
             saveEvent();
         });
     </script>
     <script>
+        var hidePending = false;
+        var hideDenied = false;
         var currentYear = new Date().getFullYear();
+        var DBSource;
+        var ff = function DataSourceFilter(currentYear) {
+            let dbClone = DBSource.filter(event => event.startDate.getFullYear() === currentYear);
+            if (hideDenied)
+                dbClone = dbClone.filter(event => event.status !== -1);
+            if (hidePending)
+                dbClone = dbClone.filter(event => event.status !== 0);
+            return dbClone;
+        }
         const calendar = new Calendar('.calendar',
             {
                 language: "@System.Globalization.CultureInfo.CurrentCulture",
@@ -113,10 +141,10 @@
                     },
                     {
                         text: 'Details',
+                        // click
 
                     }
                 ],
-
                 selectRange: function(e) {
                     editEvent({ startDate: e.startDate, endDate: e.endDate });
                 },
@@ -154,10 +182,13 @@
                 },
                 dayContextMenu: function(e) {
                     $(e.element).popover('hide');
-                }
+                },
+                // dataSource: ff
             });
-        console.log(calendar);
-        console.log(document.querySelector('.calendar'));
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
 
         document.querySelector('.calendar').addEventListener("yearChanged",
             function(e) {
@@ -170,47 +201,86 @@
                         let eventsList = [];
                         data.forEach(d => {
                             let event = {
-                                startDate: parseInt(d.DateStart.substr(6, 13)),
-                                endDate: parseInt(d.DateEnd.substr(6, 13))
+                                startDate: new Date(parseInt(d.DateStart.substr(6, 13))),
+                                endDate: new Date(parseInt(d.DateEnd.substr(6, 13))),
+                                status: getRandomInt(-1, 2)
                             };
                             eventsList.push(event);
                         });
-                        calendar.setDataSource(eventsList);
+                        DBSource = eventsList;
+                        console.log(ff(calendar.getYear()));
+                        calendar.setDataSource(ff(calendar.getYear()));
+                        // calendar.setDataSource(eventsList);
                     }
                 });
             });
 
         document.querySelector('.calendar').dispatchEvent(new Event("yearChanged"));
 
-        //calendar.setStyle('custom');
-        var customDataSourceRenderer = function(element, currentDate, events) {
+
+        calendar.setStyle('custom');
+        var HeatMap = function (element, currentDate, events) {
             let count = 0;
             events.forEach(event => {
                 if (currentDate >= event.startDate && currentDate <= event.endDate) {
                     count++;
                 }
             });
-            let lvl;
-            switch (count) {
-            case 0:
-                lvl = 0;
-                break;
-            case 1:
-                lvl = 1;
-                break;
-            case 2:
-                lvl = 2;
-                break;
-            case 3:
-                lvl = 3;
-                break;
-            default:
-                lvl = 3;
-                break;
-            }
-            element.parentElement.setAttribute("data", "lvl-" + lvl);
+            if (count > 3) count = 3;
+            element.parentElement.setAttribute("data", "lvl-" + count);
         }
-        calendar.setCustomDataSourceRenderer(customDataSourceRenderer);
+
+        var Rainbow = function (element, currentDate, events) {
+        var weight = 0;
+        if (events.length != 0) {
+            weight = 28 / (events.length);
+        }
+        if (weight > 0) {
+            var boxShadow = '';
+            for (var i = 0; i < events.length; i++) {
+                if (boxShadow != '') {
+                    boxShadow += ",";
+                }
+                boxShadow += "inset 0 -" + ((i + 1) * weight /*+ (maxEventsInMonth - events.length) * weight*/) + "px 0 0 " + events[i].color;
+            }
+            element.parentElement.style.boxShadow = boxShadow;
+        }
+    }
+
+    var OrderStatus = function (element, currentDate, events) {
+        var weight = 3;
+        if (weight > 0) {
+            var boxShadow = '';
+            var pending = false, accept = false, denied = false;
+            for (var i = 0; i < events.length; i++) {
+                if (events[i].status == -1 && denied == false) {
+                    denied = true;
+                }
+                if (events[i].status == 0 && pending == false) {
+                    pending = true;
+                }
+                if (events[i].status == 1 && accept == false) {
+                    accept = true;
+                }
+            }
+            var multiply = 1;
+            if (accept == true) {
+                boxShadow += "inset 0 -" + (multiply) * weight + "px 0 0 " + '#40ff40';
+                multiply++;
+            }
+            if (pending == true) {
+                if (boxShadow != '') boxShadow += ",";
+                boxShadow += "inset 0 -" + (multiply) * weight + "px 0 0 " + '#ffff40';
+                multiply++;
+            }
+            if (denied == true) {
+                if (boxShadow != '') boxShadow += ",";
+                boxShadow += "inset 0 -" + (multiply) * weight + "px 0 0 " + '#ff4040';
+            }
+            element.parentElement.style.boxShadow = boxShadow;
+        }
+    }
+    calendar.setCustomDataSourceRenderer(Rainbow);
     </script>
     <script>
 
@@ -231,9 +301,8 @@
                 endDate: $('#event-modal input[name="DateEnd"]').datepicker('getDate')
             }
 
-            console.log(event.startDate);
             var newId = 0;
-            for (var i in dataSource) {
+            for (let i in dataSource) {
                 if (dataSource[i].id > newId) {
                     newId = dataSource[i].id;
                 }
@@ -251,5 +320,42 @@
             $('#exampleModal .modal-body').text("Wrong vacation parameter");
             $('#exampleModal').modal();
         }
+    </script>
+
+    <script>
+        $('input[type="checkbox"][name="group1[]"]').on('change', function () {
+            $('input[name="' + this.name + '"]').not(this).prop('checked', false);
+            console.log(this.parentElement.innerText);
+            switch (this.parentElement.innerText) {
+                case 'Rainbow':
+                    calendar.setCustomDataSourceRenderer(Rainbow);
+                    break;
+                case 'OrderStatus':
+                    calendar.setCustomDataSourceRenderer(OrderStatus);
+                    break;
+                case 'HeatMap':
+                    calendar.setCustomDataSourceRenderer(HeatMap);
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        $('input[type="checkbox"]').on('change', function () {
+            switch (this.parentElement.innerText) {
+                case 'Hide Denied':
+                    hideDenied = !hideDenied;
+                    calendar.setDataSource(ff(calendar.getYear()));
+                    calendar.render();
+                    break;
+                case 'Hide Pending':
+                    hidePending = !hidePending;
+                    calendar.setDataSource(ff(calendar.getYear()));
+                    calendar.render();
+                    break;
+                default:
+                    break;
+            }
+        });
     </script>
 }
