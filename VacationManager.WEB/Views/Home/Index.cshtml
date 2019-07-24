@@ -29,27 +29,10 @@
 </div>
 
 <div class="calendar" id="calendar"></div>
-@Html.Partial("_Modal")
+@Html.Partial("_Modal", new ViewDataDictionary { })
+@Html.Partial("_ModalBody", new ViewDataDictionary { { "Id", "event-modal" }, { "Title", "Vacation Form" }, { "ViewName", "_VacationCreateForm" } })
+@Html.Partial("_ModalBody", new ViewDataDictionary { { "Id", "exampleModal" }, { "Title", "Vacation Status" }, { "ViewName", "_VacationSetStatus" } })
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="context-menu"></div>
 @section scripts {
     <script src=@Url.Content("~/Scripts/js/js-year-calendar.min.js")></script>
     <script src=@Url.Content("~/Scripts/locales/js-year-calendar.ru.js")></script>
@@ -199,6 +182,7 @@
                     type: "GET",
                     success: function(data) {
                         let eventsList = [];
+                        console.log(data);
                         data.forEach(d => {
                             let event = {
                                 startDate: new Date(parseInt(d.DateStart.substr(6, 13))),
