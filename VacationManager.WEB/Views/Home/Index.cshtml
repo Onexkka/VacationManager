@@ -29,7 +29,7 @@
 </div>
 
 <div class="calendar" id="calendar"></div>
-@Html.Partial("_Modal", new ViewDataDictionary { })
+@*@Html.Partial("_Modal", new ViewDataDictionary { })*@
 @Html.Partial("_ModalBody", new ViewDataDictionary { { "Id", "event-modal" }, { "Title", "Vacation Form" }, { "ViewName", "_VacationCreateForm" } })
 @Html.Partial("_ModalBody", new ViewDataDictionary { { "Id", "exampleModal" }, { "Title", "Vacation Status" }, { "ViewName", "_VacationSetStatus" } })
 
@@ -98,7 +98,7 @@
         var hideDenied = false;
         var currentYear = new Date().getFullYear();
         var DBSource;
-        var ff = function DataSourceFilter(currentYear) {
+        function DataSourceFilter(currentYear) {
             let dbClone = DBSource.filter(event => event.startDate.getFullYear() === currentYear);
             if (hideDenied)
                 dbClone = dbClone.filter(event => event.status !== -1);
@@ -106,6 +106,34 @@
                 dbClone = dbClone.filter(event => event.status !== 0);
             return dbClone;
         }
+
+
+        function OnDayContentRenderer(events) {
+            let content = '';
+            for (let i in events) {
+                let color;
+                let bg;
+                if (events[i].status == -1) {
+                    color = '#ff4040';
+                    bg = 'bg-danger';
+                }
+                if (events[i].status == 0) {
+                    color = '#ede500'; //#ffff40';
+                    bg = 'bg-warning';
+                }
+                if (events[i].status == 1) {
+                    color = '#40ff40';
+                    bg = 'bg-success';
+                }
+                content += '<div class="event-tooltip-content">'
+                    + '<div class="event-name" style="color:' + events[i].color + ';">' + events[i].name + ' (' + events[i].location + ')' + '</div>'
+                    // + '<div class="event-location">' + events[i].location + '</div>'
+                    + '<div class="event-date" style="border-bottom: 4px solid ' + color + ';">From ' + moment(events[i].startDate).format('ll') + ' To ' + moment(events[i].endDate).format('ll') + '</div>'
+                    + '</div>';
+            }
+            return content;
+        }
+
         const calendar = new Calendar('.calendar',
             {
                 language: "@System.Globalization.CultureInfo.CurrentCulture",
@@ -134,9 +162,10 @@
                 mouseOnDay: function(e) {
                     if (e.events.length > 0) {
                         var content = '';
+                        content += OnDayContentRenderer(e.events);
 
-                        for (var i in e.events) {
-                            content += "*" //'<div class="event-tooltip-content">' +
+                       // for (var i in e.events) {
+                       //     content += "*" //'<div class="event-tooltip-content">' +
                             //'<div class="event-name" style="color:' +
                             //e.events[i].color +
                             //'">' +
@@ -146,7 +175,7 @@
                             //e.events[i].location +
                             //'</div>' +
                             //'</div>';
-                        }
+                        //}
 
                         $(e.element).popover({
                             trigger: 'manual',
@@ -166,7 +195,7 @@
                 dayContextMenu: function(e) {
                     $(e.element).popover('hide');
                 },
-                // dataSource: ff
+                // dataSource: DataSourceFilter(currentYear)
             });
 
         function getRandomInt(min, max) {
@@ -192,8 +221,9 @@
                             eventsList.push(event);
                         });
                         DBSource = eventsList;
-                        console.log(ff(calendar.getYear()));
-                        calendar.setDataSource(ff(calendar.getYear()));
+                        calendar.setDataSource(DataSourceFilter(calendar.getYear()));
+                        // console.log(ff(calendar.getYear()));
+                        // calendar.setDataSource(ff(calendar.getYear()));
                         // calendar.setDataSource(eventsList);
                     }
                 });
@@ -329,12 +359,12 @@
             switch (this.parentElement.innerText) {
                 case 'Hide Denied':
                     hideDenied = !hideDenied;
-                    calendar.setDataSource(ff(calendar.getYear()));
+                    calendar.setDataSource(DataSourceFilter(calendar.getYear()));
                     calendar.render();
                     break;
                 case 'Hide Pending':
                     hidePending = !hidePending;
-                    calendar.setDataSource(ff(calendar.getYear()));
+                    calendar.setDataSource(DataSourceFilter(calendar.getYear()));
                     calendar.render();
                     break;
                 default:
