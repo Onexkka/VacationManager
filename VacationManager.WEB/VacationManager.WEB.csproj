@@ -452,6 +452,7 @@
     <Content Include="Views\Home\_ModalBody.cshtml" />
     <Content Include="Views\Home\_VacationSetStatus.cshtml" />
     <Content Include="Views\Home\_VacationCreateForm.cshtml" />
+    <Content Include="Views\Shared\_DisplayEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
